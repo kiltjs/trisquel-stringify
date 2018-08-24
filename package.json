@@ -1,6 +1,6 @@
 {
-  "name": "@trisquel/stringify",
-  "version": "0.1.2",
+  "name": "@triskel/stringify",
+  "version": "1.0.0",
   "description": "HTML stringify",
   "main": "stringify.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/kiltjs/trisquel-stringify.git"
+    "url": "git+ssh://git@github.com/triskeljs/stringify.git"
   },
   "keywords": [
     "html",
@@ -17,9 +17,9 @@
   "author": "Jesús Germade <jesus@germade.es>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kiltjs/trisquel-stringify/issues"
+    "url": "https://github.com/triskeljs/stringify/issues"
   },
-  "homepage": "https://github.com/kiltjs/trisquel-stringify#readme",
+  "homepage": "https://github.com/triskeljs/stringify#readme",
   "devDependencies": {
     "eslint": "5.0.1",
     "mocha": "5.2.0"
