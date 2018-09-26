@@ -125,7 +125,7 @@ describe('stringify', function () {
 
   });
 
-  it('remove comments implicit', function () {
+  it('remove comments implicitly', function () {
 
     assert.strictEqual( stringifyNodes([
       {
@@ -142,7 +142,7 @@ describe('stringify', function () {
 
   });
 
-  it('remove comments explicit', function () {
+  it('remove comments explicitly', function () {
 
     assert.strictEqual( stringifyNodes([
       {
