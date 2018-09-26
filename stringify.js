@@ -45,7 +45,7 @@ function _processNode (_node, processor, options) {
     if( '_' in node ) result += _stringifyNodes(node._, options);
     if( !node.unclosed ) result += '</' + node.$ + '>';
   } else if( 'comments' in node ) {
-    result += options.remove_comments === false ? ('<!--' + node._ + '-->') : '';
+    result += options.remove_comments === false ? ('<!--' + node.comments + '-->') : '';
   } else {
     result += node.text || '';
   }

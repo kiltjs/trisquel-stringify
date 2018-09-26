@@ -42,8 +42,7 @@ console.log( stringifyHTML([
             },
             _: [
               {
-                comments: true,
-                _: ' CentralNotice ',
+                comments: ' CentralNotice ',
               },
             ],
             $: 'div',

@@ -115,8 +115,7 @@ describe('stringify', function () {
         text: 'foo ',
       },
       {
-        comments: true,
-        _: ' commented text ',
+        comments: ' commented text ',
       },
       {
         text: ' bar',
@@ -132,8 +131,7 @@ describe('stringify', function () {
         text: 'foo ',
       },
       {
-        comments: true,
-        _: ' commented text ',
+        comments: ' commented text ',
       },
       {
         text: ' bar',
@@ -149,8 +147,7 @@ describe('stringify', function () {
         text: 'foo ',
       },
       {
-        comments: true,
-        _: ' commented text ',
+        comments: ' commented text ',
       },
       {
         text: ' bar',
