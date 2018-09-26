@@ -13,6 +13,30 @@ describe('stringify', function () {
 
   });
 
+  it('text nodes', function () {
+
+    assert.strictEqual( stringifyNodes([
+      {
+        text: 'foo ',
+      },
+      {
+        text: ' bar',
+      },
+    ]), 'foo  bar' );
+
+  });
+
+  it('mixed nodes', function () {
+
+    assert.strictEqual( stringifyNodes([
+      'foo ',
+      {
+        text: ' bar',
+      },
+    ]), 'foo  bar' );
+
+  });
+
   it('script', function () {
 
     assert.strictEqual( stringifyNodes([{ $:'script', attrs: { 'template:type': 'text/javascript' }, _:`
@@ -79,6 +103,59 @@ describe('stringify', function () {
         ]
       }
     ]), snippet.trim() );
+
+  });
+
+  it('keep comments', function () {
+
+    var snippet = 'foo <!-- commented text --> bar';
+
+    assert.strictEqual( stringifyNodes([
+      {
+        text: 'foo ',
+      },
+      {
+        comments: true,
+        _: ' commented text ',
+      },
+      {
+        text: ' bar',
+      },
+    ], { remove_comments: false }), snippet.trim() );
+
+  });
+
+  it('remove comments implicit', function () {
+
+    assert.strictEqual( stringifyNodes([
+      {
+        text: 'foo ',
+      },
+      {
+        comments: true,
+        _: ' commented text ',
+      },
+      {
+        text: ' bar',
+      },
+    ]), 'foo  bar' );
+
+  });
+
+  it('remove comments explicit', function () {
+
+    assert.strictEqual( stringifyNodes([
+      {
+        text: 'foo ',
+      },
+      {
+        comments: true,
+        _: ' commented text ',
+      },
+      {
+        text: ' bar',
+      },
+    ], { remove_comments: true }), 'foo  bar' );
 
   });
 

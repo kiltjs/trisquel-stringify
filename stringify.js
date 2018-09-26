@@ -20,6 +20,8 @@ function _renderAttrs () {
 }
 
 function _processNode (_node, processor, options) {
+  if( typeof _node === 'string' ) return _node;
+
   var node = Object.create(_node), result;
 
   if( processor instanceof Function ) {
@@ -42,7 +44,7 @@ function _processNode (_node, processor, options) {
     result += '<' + ( node.self_closed ? '/' : '' ) + node.$ + _stringifyAttrs(node.attrs) + '>';
     if( '_' in node ) result += _stringifyNodes(node._, options);
     if( !node.unclosed ) result += '</' + node.$ + '>';
-  } else if( node.comments ) {
+  } else if( 'comments' in node ) {
     result += options.remove_comments === false ? ('<!--' + node._ + '-->') : '';
   } else {
     result += node.text || '';
