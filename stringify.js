@@ -48,7 +48,7 @@ function _processNode (_node, processor, options, i, indent_level) {
 
   if( node.$ ) {
     if( options.prettify_markup ) result += _indentationSpaces(indent_level, i);
-    result += '<' + node.$ + _stringifyAttrs(node.attrs) + ( node.self_closed ? '/' : '' ) + '>';
+    result += '<' + node.$ + _stringifyAttrs(node.attrs) + ( node.self_closed ? '/' : '' ) + '>' + (options.prettify_markup && node.warn ? '\n' : '');
     if( '_' in node ) result += _stringifyNodes(node._, options, indent_level + (node.warn ? 0 : 1) );
     if( !node.self_closed && !node.unclosed ) {
       if( options.prettify_markup && node._ instanceof Array ) result += '\n';
@@ -63,7 +63,7 @@ function _processNode (_node, processor, options, i, indent_level) {
     result += node.text || '';
   }
 
-  return result + (options.prettify_markup && node.warn ? '\n' : '');
+  return result;
 }
 
 function _stringifyNodes (nodes, options, indent_level) {
