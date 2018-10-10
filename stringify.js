@@ -19,13 +19,13 @@ function _renderAttrs () {
   return _stringifyAttrs(this.attrs);
 }
 
-function _indentationSpaces (n) {
-  var spaces = '';
+function _indentationSpaces (n, i) {
+  var spaces = n || i ? '\n' : '';
   for( ; n > 0; n-- ) spaces += '  ';
   return spaces;
 }
 
-function _processNode (_node, processor, options, indent_level) {
+function _processNode (_node, processor, options, i, indent_level) {
   if( typeof _node === 'string' ) return _node;
 
   var node = Object.create(_node), result;
@@ -47,7 +47,7 @@ function _processNode (_node, processor, options, indent_level) {
   result = '';
 
   if( node.$ ) {
-    if( options.prettify_markup && indent_level ) result += _indentationSpaces(indent_level);
+    if( options.prettify_markup ) result += _indentationSpaces(indent_level, i);
     result += '<' + node.$ + _stringifyAttrs(node.attrs) + ( node.self_closed ? '/' : '' ) + '>';
     if( '_' in node ) result += _stringifyNodes(node._, options, indent_level + (node.warn ? 0 : 1) );
     if( !node.self_closed && !node.unclosed ) {
@@ -56,7 +56,7 @@ function _processNode (_node, processor, options, indent_level) {
     }
   } else if( 'comments' in node ) {
     if( options.remove_comments === false ) {
-      if( options.prettify_markup && indent_level ) result += _indentationSpaces(indent_level);
+      if( options.prettify_markup ) result += _indentationSpaces(indent_level, i);
       result += '<!--' + node.comments + '-->';
     }
   } else {
@@ -70,7 +70,7 @@ function _stringifyNodes (nodes, options, indent_level) {
   if( typeof nodes === 'string' ) return nodes;
 
   return nodes.reduce(function (html, node, i) {
-    return html + ( (indent_level || i) && ( 'comments' in node === false || !options.remove_comments ) && options.prettify_markup ? '\n' : '' ) + _processNode(node, options.processors[node.$], options, indent_level);
+    return html + _processNode(node, options.processors[node.$], options, i, indent_level);
   }, '');
 }
 
