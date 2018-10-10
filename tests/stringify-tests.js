@@ -34,6 +34,47 @@ describe('stringify', function () {
 
   });
 
+  it('prettify_markup with comments', function () {
+
+    assert.deepEqual( stringifyNodes([
+      { $:'div', attrs: { id: 'foobar' }, _:[
+        { comments: ' foobar ' },
+        { $: 'foo', _: 'bar' },
+      ] },
+      { $: 'br', self_closed: true },
+    ], {
+      prettify_markup: true,
+      remove_comments: false,
+    }), `
+<div id="foobar">
+  <!-- foobar -->
+  <foo>bar</foo>
+</div>
+<br/>
+    `.trim() );
+
+  });
+
+  it('prettify_markup removing comments', function () {
+
+    assert.deepEqual( stringifyNodes([
+      { $:'div', attrs: { id: 'foobar' }, _:[
+        { comments: ' foobar ' },
+        { $: 'foo', _: 'bar' },
+      ] },
+      { $: 'br', self_closed: true },
+    ], {
+      prettify_markup: true,
+      remove_comments: true,
+    }), `
+<div id="foobar">
+  <foo>bar</foo>
+</div>
+<br/>
+    `.trim() );
+
+  });
+
   it('text nodes', function () {
 
     assert.strictEqual( stringifyNodes([

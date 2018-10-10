@@ -49,13 +49,16 @@ function _processNode (_node, processor, options, indent_level) {
   if( node.$ ) {
     if( options.prettify_markup && indent_level ) result += _indentationSpaces(indent_level);
     result += '<' + node.$ + _stringifyAttrs(node.attrs) + ( node.self_closed ? '/' : '' ) + '>';
-    if( '_' in node ) result += _stringifyNodes(node._, options, indent_level + 1);
+    if( '_' in node ) result += _stringifyNodes(node._, options, indent_level + (node.warn ? 0 : 1) );
     if( !node.self_closed && !node.unclosed ) {
       if( options.prettify_markup && node._ instanceof Array ) result += '\n';
       result += '</' + node.$ + '>';
     }
   } else if( 'comments' in node ) {
-    result += options.remove_comments === false ? ('<!--' + node.comments + '-->') : '';
+    if( options.remove_comments === false ) {
+      if( options.prettify_markup && indent_level ) result += _indentationSpaces(indent_level);
+      result += '<!--' + node.comments + '-->';
+    }
   } else {
     result += node.text || '';
   }
@@ -67,7 +70,7 @@ function _stringifyNodes (nodes, options, indent_level) {
   if( typeof nodes === 'string' ) return nodes;
 
   return nodes.reduce(function (html, node, i) {
-    return html + ( (indent_level || i) && options.prettify_markup ? '\n' : '' ) + _processNode(node, options.processors[node.$], options, indent_level);
+    return html + ( (indent_level || i) && ( 'comments' in node === false || !options.remove_comments ) && options.prettify_markup ? '\n' : '' ) + _processNode(node, options.processors[node.$], options, indent_level);
   }, '');
 }
 
