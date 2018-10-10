@@ -44,9 +44,10 @@ function _processNode (_node, processor, options, indent_level) {
     if( typeof result === 'string' ) return result;
   }
 
-  result = options.prettify_markup ? _indentationSpaces(indent_level) : '';
+  result = '';
 
   if( node.$ ) {
+    if( options.prettify_markup && indent_level ) result += _indentationSpaces(indent_level);
     result += '<' + node.$ + _stringifyAttrs(node.attrs) + ( node.self_closed ? '/' : '' ) + '>';
     if( '_' in node ) result += _stringifyNodes(node._, options, indent_level + 1);
     if( !node.self_closed && !node.unclosed ) {
