@@ -63,7 +63,7 @@ function _processNode (_node, processor, options, i, indent_level) {
     result += node.text || '';
   }
 
-  return result + (node.warn ? '\n' : '');
+  return result + (options.prettify_markup && node.warn ? '\n' : '');
 }
 
 function _stringifyNodes (nodes, options, indent_level) {
