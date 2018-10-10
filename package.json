@@ -1,6 +1,6 @@
 {
   "name": "@triskel/stringify",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "HTML stringify",
   "main": "stringify.js",
   "scripts": {
