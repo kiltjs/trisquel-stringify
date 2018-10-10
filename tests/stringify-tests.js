@@ -21,6 +21,19 @@ describe('stringify', function () {
 
   });
 
+  it('prettify_markup', function () {
+
+    assert.deepEqual( stringifyNodes([{ $:'div', attrs: { id: 'foobar' }, _:[{ $: 'foo', _: 'bar' }] }, { $: 'br', self_closed: true }], {
+      prettify_markup: true,
+    }), `
+<div id="foobar">
+  <foo>bar</foo>
+</div>
+<br/>
+    `.trim() );
+
+  });
+
   it('text nodes', function () {
 
     assert.strictEqual( stringifyNodes([
