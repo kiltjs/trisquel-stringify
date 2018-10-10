@@ -13,6 +13,14 @@ describe('stringify', function () {
 
   });
 
+  it('self_closed', function () {
+
+    assert.deepEqual( stringifyNodes([{ $:'div', attrs: { id: 'foobar' }, _:[{ text: 'foo' }] }, { $: 'br', self_closed: true }]), `
+<div id="foobar">foo</div><br/>
+    `.trim() );
+
+  });
+
   it('text nodes', function () {
 
     assert.strictEqual( stringifyNodes([

@@ -41,9 +41,9 @@ function _processNode (_node, processor, options) {
   result = '';
 
   if( node.$ ) {
-    result += '<' + ( node.self_closed ? '/' : '' ) + node.$ + _stringifyAttrs(node.attrs) + '>';
+    result += '<' + node.$ + _stringifyAttrs(node.attrs) + ( node.self_closed ? '/' : '' ) + '>';
     if( '_' in node ) result += _stringifyNodes(node._, options);
-    if( !node.unclosed ) result += '</' + node.$ + '>';
+    if( !node.self_closed && !node.unclosed ) result += '</' + node.$ + '>';
   } else if( 'comments' in node ) {
     result += options.remove_comments === false ? ('<!--' + node.comments + '-->') : '';
   } else {
